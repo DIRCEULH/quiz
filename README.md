@@ -1,7 +1,5 @@
 # quiz
-Usuário administrador acesso:
-usuario = trezo
-senha = 2018
+
 _______________Funcionalidades_________________
 O Usuario (Candidato) poderá cadastrar se e em  seguida realizar o teste. Ao finalizar o teste o mesmo não poderá efetuar o novamente.
 O Usuario (Candidato) poderá ver seus erros e acertos no final do teste em menu "detalhes" sempre que logar.
