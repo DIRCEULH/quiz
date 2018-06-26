@@ -15,8 +15,8 @@
        <div class="container-fluid">
           <ul class="nav navbar-nav">
              <li class="active"><a href="index.php">Quiz</a></li>
-			 <li><a href="questions_answers.php">Perguntas e respostas</a></li>
-			 <li><a href="answers_users.php">Respostas de Usuários</a></li>			 
+	     <li><a href="questions_answers.php">Perguntas e respostas</a></li>
+	     <li><a href="answers_users.php">Respostas de Usuários</a></li>			 
              <li><a href="quiz_destroy.php">Voltar ao topo</a></li>
           </ul>
        </div>
@@ -25,9 +25,9 @@
 		<div class="col-md-6 col-md-offset-3">
 		<?php if(isset($message)): ?> 
 		<br>
-			<div class="alert <?=$alertBoxClass?>">
-				<?=$message?>
-			</div>
+		<div class="alert <?=$alertBoxClass?>">
+		<?=$message?>
+		</div>
 		<?php endif; ?>
 			<h1>Adicionar nova pergunta.</h1>
 			<form class="form" method="POST">
@@ -94,19 +94,19 @@ if(isset($_POST['search']))
 
 		$rightAnswerId = NULL;
 
-	//	estamos preparando nossa consulta para adicionar cada opção
+		//estamos preparando nossa consulta para adicionar cada opção
 		$addQuestionOptionQuery = $connection->prepare("INSERT INTO question_options (question_options.question_id, question_options.body,question_options.created_at) VALUES (?, ?,NOW())");
 
-	//	Vamos percorrer as respostas do POST e adicionar cada uma delas
+		//Vamos percorrer as respostas do POST e adicionar cada uma delas
 
 
 		foreach ($_POST['question_option'] as $key => $value) 
 		{
 
-		//	nós enviamos o valor da opção relevante como o parâmetro de consulta preparado e estamos executando
+			//nós enviamos o valor da opção relevante como o parâmetro de consulta preparado e estamos executando
 			$addQuestionOptionQuery->execute(array($questionId, $value));
 
-		//	Se esta opção for especificada como verdadeira, então nós escrevemos o valor id desta opção até o final, porque nós iremos atualizar a pergunta com o valor id da resposta correta.
+			//Se esta opção for especificada como verdadeira, então nós escrevemos o valor id desta opção até o final, porque nós iremos atualizar a pergunta com o valor id da resposta correta.
               
 
 			if($_POST['correct']==$key ) 
@@ -123,18 +123,20 @@ if(isset($_POST['search']))
 		
         $description_options = $_POST['question_option'][$body];
 		
-		$update = $connection->exec("UPDATE questions SET answer_id = $rightAnswerId ,description_options = '$description_options' WHERE id = $questionId");
+	$update = $connection->exec("UPDATE questions SET answer_id = $rightAnswerId ,description_options = '$description_options' WHERE id = $questionId");
 
-		//garantimos que as consultas ao banco de dados sejam processadas no banco de dados.
-		$connection->commit();
+	//garantimos que as consultas ao banco de dados sejam processadas no banco de dados.
+	$connection->commit();
 
         echo("<script type='text/javascript'> bootbox.alert(' Pergunta Adicionada com sucesso!!');</script>");	
 
 	
-	} catch( PDOException $e ) {
-		//	Se ocorreu uma exceção de PDO (se o erro ocorreu), rebobinamos as alterações feitas no banco de dados a essa falha
-		$connection->rollback();
-		echo("<script type='text/javascript'> bootbox.alert(' Nenhuma Pergunta Adicionada!!');</script>");
+	} 
+	catch( PDOException $e )
+	{
+	//	Se ocorreu uma exceção de PDO (se o erro ocorreu), rebobinamos as alterações feitas no banco de dados a essa falha
+	$connection->rollback();
+	echo("<script type='text/javascript'> bootbox.alert(' Nenhuma Pergunta Adicionada!!');</script>");
             // echo 'Exceção capturada: ',  $e->getMessage(), "\n";
 	}
 }
