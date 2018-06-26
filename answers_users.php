@@ -43,8 +43,8 @@ endif;
           <ul class="nav navbar-nav">
              <li class="active"><a href="index.php">Quiz</a></li>
              <li><a href="add-question.php">Cadastro de perguntas</a></li>
-			 <li><a href="questions_answers.php">Perguntas e respostas</a></li>
-			 <li><a href="answers_users.php">Respostas de users</a></li>			 
+	     <li><a href="questions_answers.php">Perguntas e respostas</a></li>
+	     <li><a href="answers_users.php">Respostas de users</a></li>			 
              <li><a href="quiz_destroy.php">Voltar ao topo</a></li>
           </ul>
        </div>
@@ -64,9 +64,8 @@ endif;
     <th>Erros</th>
     <th>Realizado em</th>
     <th>Finalizado em</th>
-	<th>Finalalizou em</th>
-	<th>Detalhes</th>
-
+    <th>Finalalizou em</th>
+    <th>Detalhes</th>
   </tr>
 <?php foreach($data_result as $data){ 
 
@@ -80,11 +79,10 @@ endif;
     <td><?=$data->user?></td>
     <td><?=$data->hits?></td>
     <td><?=$data->error?></td>
-	<td><?= date("d/m/Y H:i:s", strtotime($data->created_at)); ?></td>
-	<td><?= date("d/m/Y H:i:s", strtotime($data->finalized_at)); ?></td>
+    <td><?= date("d/m/Y H:i:s", strtotime($data->created_at)); ?></td>
+    <td><?= date("d/m/Y H:i:s", strtotime($data->finalized_at)); ?></td>
     <td><?=$diff->format('%s segundo(s)');?></td>
 	<td><a  href="details_adm.php?user=<?=$data->user?>" class="btn btn-success">Detalhes <i class="fa fa-sign-in" aria-hidden="true"></i> </a></td>
-
   </tr>
 <?php }	?>		
 </table>
