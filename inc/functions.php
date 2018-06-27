@@ -1,15 +1,15 @@
 <?php
 
-
+//quando a session finalizar rediciona para ondex
 function redirectIfNotStarted()
 {
 	if(!isset($_SESSION['started_at'])) 
 	{
 		header("Location:index.php");
-		die();
+	
 	}
 }
-
+// verifica quais as perguntas que o usuário acertou e as conta
 function checkAnswer($con)
 {
 	if( isset($_POST['question_id']) AND isset($_POST['answer'])) 
@@ -22,6 +22,7 @@ function checkAnswer($con)
 
 		$isCorrect = $con->query("SELECT id FROM questions WHERE id = $answeredQuestionId AND answer_id = $answerId")->rowCount();
 		
+		// insere o id das respostas  do usuário
 		$addAnswerUserQuery = $con->query("INSERT INTO answer_user_id (user,answers_id) VALUES ('".$_SESSION['user']."',$answerId ) ");
 		
 	
@@ -34,7 +35,7 @@ function checkAnswer($con)
 	}
 }
 
-
+//adiciona na tabela answer_user o usuario e data da inserção
 function insertUser($con)
 {
 		
@@ -45,7 +46,7 @@ function insertUser($con)
 	
 	}
 }
-
+//adiciona na tabela answer_user os acertos e erros
 function updateUser($con)
 {
 		
@@ -60,7 +61,7 @@ function updateUser($con)
 
 	}
 }
-
+// tras a próxima pergunta para a tela
 function getRandomQuestion($con)
 {
 	$answeredQuestionsListString = implode(",", $_SESSION['answered_questions']);
@@ -72,7 +73,7 @@ function getRandomQuestion($con)
 	return $question;
 }
 
-
+// Ao finalizar session das perguntas rediciona para o resultado
 function endQuiz()
 {
 	$_SESSION['completed_at'] = time();
